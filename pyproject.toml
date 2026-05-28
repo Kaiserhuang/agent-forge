@@ -1,0 +1,22 @@
+[project]
+name = "agent-forge"
+version = "0.1.0"
+description = "通用 LLM Agent 框架 — 支持技能扩展与多 Agent 编排"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=1.0.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "websockets>=12.0",
+    "pydantic>=2.0.0",
+    "duckduckgo_search>=6.0",
+    "httpx>=0.25.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+agent-forge = "backend.app:main"
+
+[tool.pyright]
+include = ["backend"]
+typeCheckingMode = "standard"

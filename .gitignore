@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+*.egg
+.venv/
+venv/
+
+# Node.js
+node_modules/
+gui/node_modules/
+gui/dist/
+gui/dist-web/
+gui/dist-electron/
+
+# Environment
+.env
+*.db
+*.db-wal
+*.db-shm
+
+# Vector store
+**/vectors/
+**/lancedb/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+**/__pycache__/
+.pytest_cache/
+*.pytest_cache/
+data/
+*.log
+
+# Build output

@@ -1,0 +1,59 @@
+# AgentForge Flow 示例 — 调研→写作→审阅
+version: "1.0"
+
+agents:
+  researcher:
+    llm:
+      provider: deepseek
+      model: deepseek-chat
+    system_prompt: "你是一个专业的研究员，善于从互联网收集和分析信息。"
+    skills: [web_search, read_file]
+    temperature: 0.5
+
+  writer:
+    llm:
+      provider: deepseek
+      model: deepseek-chat
+    system_prompt: "你是专业的技术文档写手，擅长撰写结构清晰的技术报告。"
+    skills: [file_ops]
+
+  reviewer:
+    llm:
+      provider: deepseek
+      model: deepseek-chat
+    system_prompt: "你是严谨的审稿编辑，只关注事实准确性和逻辑完整性。"
+    temperature: 0.3
+
+flows:
+  - name: "调研并输出报告"
+    description: "从用户问题出发，调研 → 撰写 → 审阅"
+
+    nodes:
+      - id: research
+        agent: researcher
+        input: "请全面调研以下主题并输出详细的调研笔记:\n{topic}"
+        use_blackboard: false
+
+      - id: write_draft
+        agent: writer
+        input: >-
+          根据以下调研笔记撰写一份结构清晰的技术报告，使用 Markdown 格式:
+
+          {research.output}
+
+          报告要求:
+          - 包含摘要、背景、主要内容、分析、结论
+          - 引用调研中的来源
+          - 使用专业但不晦涩的语言
+
+      - id: review
+        agent: reviewer
+        input: "请审阅以下技术报告，指出事实性错误、逻辑漏洞和改进建议:\n\n{write_draft.output}"
+        use_blackboard: true
+
+    blackboard_initial:
+      project_type: "research_report"
+      review_round: 1
+
+    output_mode: all
+    communication: hybrid

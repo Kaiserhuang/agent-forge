@@ -1,0 +1,15 @@
+name: greeting
+description: 问候技能 — 根据名字生成个性化问候语
+parameters:
+  type: object
+  properties:
+    name:
+      type: string
+      description: 要问候的名字
+    language:
+      type: string
+      enum: [zh, en]
+      description: 语言（zh=中文, en=英文）
+      default: zh
+  required: [name]
+run_as: inline
